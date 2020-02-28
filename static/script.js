@@ -69,12 +69,13 @@ out10.innerHTML = slider10.value; // Display the default slider value
 
         req.open('POST', '/', true);
         req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-        var dict = {slider: sliderString,
-                    value: out.value};
-        var dictString = JSON.stringify(dict);
-        var dictJSON = JSON.parse(dictString);
-        console.log(dictString);
-        req.send(dictJSON);
+        outputVal = out.value;
+        var arr = [sliderString, outputVal]
+        var arrString = JSON.stringify( {v : sliderString, o : outputVal});
+        // var arrJSON = JSON.parse(arr);
+        // console.log(arrString);
+        req.send(arrString);
+
       }
 
 slider1.oninput = function () {
@@ -83,28 +84,38 @@ slider1.oninput = function () {
 };
 slider2.oninput = function () {
     out2.innerHTML = this.value;
+    do_ajax("slider2", out2);
+
 };
 slider3.oninput = function () {
     out3.innerHTML = this.value;
+    do_ajax("slider3", out3);
 };
 slider4.oninput = function () {
     out4.innerHTML = this.value;
+    do_ajax("slider4", out4);
 };
 slider5.oninput = function () {
     out5.innerHTML = this.value;
+    do_ajax("slider5", out5);
 };
 slider6.oninput = function () {
     out6.innerHTML = this.value;
+    do_ajax("slider6", out6);
 };
 slider7.oninput = function () {
     out7.innerHTML = this.value;
+    do_ajax("slider7", out7);
 };
 slider8.oninput = function () {
     out8.innerHTML = this.value;
+    do_ajax("slider8", out8);
 };
 slider9.oninput = function () {
     out9.innerHTML = this.value;
+    do_ajax("slider9", out9);
 };
 slider10.oninput = function () {
     out10.innerHTML = this.value;
+    do_ajax("slider10", out10);
 }
