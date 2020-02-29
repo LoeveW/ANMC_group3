@@ -25,7 +25,8 @@ def index():
     if request.method == "POST":
         req = request.form;
         reqDict = req.to_dict(flat=False)
-        print(reqDict)
+        for key, value in reqDict.items():
+            print(key)
 
     return render_template("index.html")
 
