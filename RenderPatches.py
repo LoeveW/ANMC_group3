@@ -50,6 +50,7 @@ def render_random(engine, override=True):
     # matter what channel size for ease of use.
     audio = engine.get_audio_frames()
 
+
     return audio, patch
 
 def render_patch(patch_data, engine, override=True):
