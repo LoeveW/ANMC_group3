@@ -20,11 +20,11 @@ def op_converter(source):
 	return dest
 
 def syx_to_rm(source):
-	dest = [0]*155
+	dest = [-1]*155
 
-	dest[15:22] = source[126:133] # PITCH EG "" ""
+	dest[15:23] = source[126:134] # PITCH EG "" ""
 	dest[14] = source[143] # PITCH MOD SENSITIVITY
-	dest[4:12] = source[134:142] # ALGORITHM # -> LFO
+	dest[4:13] = source[134:143] # ALGORITHM # -> LFO
 
 	# unsure
 	dest[13] = source[144] # transpose
@@ -33,11 +33,16 @@ def syx_to_rm(source):
 	dest[0] = 1 # cutoff (verified: it doesn't change, why?)
 	dest[1] = 0 # resonance
 	dest[2] = 1 # output (verified: has to be 1)
+	dest[3] = .5 # master tune
 
 	for i in range(6):
-		op_i = source[i*21:(i+1)*21]
+		op_i = source[(5-i)*21:(5-i+1)*21]
 		dest_op_i = op_converter(op_i)
-		dest[23+(5-i)*22:23+((5-i)+1)*22] = dest_op_i
+		dest[23+i*22:23+(i+1)*22] = dest_op_i
+
+	for i,param in enumerate(dest):
+		if param==-1:
+			print(i, param)
 
 	return dest
 

@@ -11,7 +11,7 @@ bufferSize = 512
 fftSize = 512
 
 # Note settings
-midiNote = 40
+midiNote = 60
 midiVelocity = 127
 noteLength = 4.0
 renderLength = 5.0
