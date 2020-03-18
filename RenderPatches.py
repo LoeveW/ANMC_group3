@@ -29,6 +29,7 @@ def render_random(engine, override=True):
     generator = rm.PatchGenerator(engine)
     patch = generator.get_random_patch()
     engine.set_patch(patch)
+    #print(engine.get_plugin_parameters_description())
 
     if override:
         # We need to override some parameters to prevent hanging notes in
@@ -36,6 +37,16 @@ def render_random(engine, override=True):
         overriden_parameters = [(26, 1.),  (30, 0.),  (48, 1.),  (52, 0.), 
                                 (70, 1.),  (74, 0.),  (92, 1.),  (96, 0.), 
                                 (114, 1.), (118, 0.), (136, 1.), (140, 0.)]
+
+        overriden_parameters += [ # force max volume 
+                                (31,1.), (53,1.), (75,1.),
+                                (97,1.), (119,1.), (141,1.),
+                                (2,1.)
+                                ]
+
+        overriden_parameters += [(13,.5)] # force middle C
+
+
 
         # Loop through each tuple, unpack it and override the correct
         # parameter with the correct value to prevent hanging notes.
