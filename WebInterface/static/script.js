@@ -3,15 +3,20 @@ function do_ajax(sliders_values) {
 
     req.open('POST', '/', true);
     req.setRequestHeader('content-type', 'application/x-www-form-urlencoded;charset=UTF-8');
-    var dictString = JSON.stringify(sliders_values);
-    req.send(dictString);
+    console.log(sliders_values)
+    var arrString = JSON.stringify(sliders_values);
+    console.log(arrString)
+    req.send(arrString);
 
 }
 
 var slidercontainer = document.getElementById("slidercontainer");
 var sliders = {};
-var sliders_values = {};
-for (let i = 0; i < 10; i++) {
+var sliders_values = [];
+
+var n_sliders = 10; // The number of sliders
+
+for (let i = 0; i < n_sliders; i++) {
 
     sliders[i] = document.createElement('input');
     sliders[i].setAttribute("id", "slider"+i);
@@ -22,7 +27,7 @@ for (let i = 0; i < 10; i++) {
     sliders[i].setAttribute("class", "slider");
     slidercontainer.appendChild(sliders[i]);
 
-    sliders_values[i] = sliders[i].value; // Display the default slider value
+    sliders_values.push(sliders[i].value); // Display the default slider value
 
     sliders[i].oninput = function () {
         sliders_values[i] = this.value;
@@ -31,4 +36,4 @@ for (let i = 0; i < 10; i++) {
 
 
 }
-do_ajax(sliders);
+do_ajax(sliders_values);
