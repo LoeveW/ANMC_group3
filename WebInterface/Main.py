@@ -4,19 +4,6 @@ from werkzeug.datastructures import ImmutableMultiDict
 app = Flask(__name__)
 PORT = 8080
 
-sliders = {
-    "slider1": 50,
-    "slider2": 50,
-    "slider3": 50,
-    "slider4": 50,
-    "slider5": 50,
-    "slider6": 50,
-    "slider7": 50,
-    "slider8": 50,
-    "slider9": 50,
-    "slider10": 50
-}
-
 # Handler = http.server.SimpleHTTPRequestHandler
 
 
@@ -24,10 +11,9 @@ sliders = {
 def index():
     if request.method == "POST":
         req = request.form;
-        reqDict = req.to_dict(flat=False)
-        for key, value in reqDict.items():
-            print(key)
-
+        params = req.to_dict(flat=False)
+        print(params)
+        
     return render_template("index.html")
 
 
