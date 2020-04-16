@@ -29,9 +29,10 @@ D_x = 145
 D_h = [800,500]
 D_z = 10
 use_cuda = False
-beta = 1
 model = betaVAE(D_x, D_h, D_z, use_cuda).float()
-model.load_state_dict(torch.load("../autoencoder/weights"))
+weights_path = "../autoencoder/weights/"
+weights_fname = "w_beta1_v1_4600"
+model.load_state_dict(torch.load(weights_path + weights_fname))
 
 
 app = Flask(__name__)
@@ -45,10 +46,23 @@ PORT = 8080
 def index():
 	if request.method == "POST":
 
+		global model
+		global weights_fname
+
 		# Get the sliders values as integers
-		latent = request.form.to_dict(flat=False).keys()[0]
-		latent = latent.replace('[','').replace(']','').replace('"','')
-		latent = [float(s) for s in latent.split(',')]
+		request_data = request.form.to_dict(flat=False).keys()[0]
+		request_data = request_data.replace('[','').replace(']','').replace('"','')
+		latent = [float(s) for s in request_data.split(',')[:-1]]
+
+		new_weights_fname = request_data.split(',')[-1]
+
+		# Reload model if it has changed
+		if new_weights_fname != weights_fname:
+			weights_fname = new_weights_fname
+			model.load_state_dict(torch.load(weights_path + new_weights_fname))
+			print("reload model")
+		
+
 		
 		# Model forward pass with the values as latent space
 		latent = torch.from_numpy(np.array(latent)).float()
@@ -63,7 +77,6 @@ def index():
 		wav = AudioSegment.from_wav(fname+".wav")
 		wav.export(fname+".mp3", format="mp3")
 
-		app.audio_count += 1
 
 	return render_template("index.html")
 

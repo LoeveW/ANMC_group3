@@ -11,7 +11,6 @@ import numpy as np
 def fc_layer(D_in, D_out):
     layers = ()
     layers += (nn.Linear(D_in, D_out),)
-    #layers += (nn.BatchNorm1d(num_features=D_out))
     layers += (nn.LeakyReLU(0.05),)
     return nn.Sequential(*layers)    
 
